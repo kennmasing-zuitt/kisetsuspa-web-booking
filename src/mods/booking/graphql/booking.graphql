@@ -1,0 +1,44 @@
+query BookingWindow {
+    bookingWindow {
+        today
+        lastDay
+        earliestStart
+        timeZone
+        phone
+    }
+}
+
+query BookingOptions($date: String!) {
+    bookingServices(date: $date) {
+        id
+        name
+        options {
+            durationMin
+            price
+        }
+    }
+    bookingTherapists {
+        id
+        name
+    }
+}
+
+query AvailableSlots($date: String!, $serviceId: ID!, $durationMin: Int!) {
+    availableSlots(date: $date, serviceId: $serviceId, durationMin: $durationMin) {
+        start
+        end
+        therapistIds
+    }
+}
+
+mutation BookAppointment($input: AppointmentInput!) {
+    bookAppointment(input: $input) {
+        bookingId
+        start
+        end
+        serviceName
+        durationMin
+        therapistName
+        price
+    }
+}

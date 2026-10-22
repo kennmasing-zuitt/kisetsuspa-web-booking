@@ -1,0 +1,22 @@
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            # Baked into the site at build time; set them in .env next to this file
+            args:
+                NEXT_PUBLIC_BOOKING_API_URL: ${NEXT_PUBLIC_BOOKING_API_URL:-https://scheduling-api.kisetsuspa.com/booking/graphql}
+                NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:?set NEXT_PUBLIC_TURNSTILE_SITE_KEY in .env}
+                NEXT_PUBLIC_BASE_PATH: ${NEXT_PUBLIC_BASE_PATH:-/book}
+                NEXT_PUBLIC_MOCK_API: "false"
+        image: kisetsu-booking-client:latest
+        container_name: kisetsu-booking-client
+        restart: unless-stopped
+        # no "ports:" - the shared Nginx proxy reaches it over the web network
+        networks:
+            web:
+                aliases: [kisetsu-booking-client]
+
+networks:
+    web:
+        external: true

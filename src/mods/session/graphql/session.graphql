@@ -1,0 +1,44 @@
+fragment ClientSessionFields on ClientSession {
+    token
+    expiresAt
+    clientId
+    firstName
+}
+
+mutation ClientLogin($mobile: String!, $code: String!) {
+    clientLogin(mobile: $mobile, code: $code) {
+        ...ClientSessionFields
+    }
+}
+
+mutation RequestSetupCode($mobile: String!, $turnstileToken: String!) {
+    requestSetupCode(mobile: $mobile, turnstileToken: $turnstileToken) {
+        sentTo
+        expiresAt
+        resendAfter
+    }
+}
+
+mutation VerifySetupCode($mobile: String!, $code: String!) {
+    verifySetupCode(mobile: $mobile, code: $code) {
+        setupToken
+        needsName
+        firstName
+        hasApp
+    }
+}
+
+mutation StartAppSetup($setupToken: String!, $firstName: String, $lastName: String) {
+    startAppSetup(setupToken: $setupToken, firstName: $firstName, lastName: $lastName) {
+        setupToken
+        secret
+        otpauthUrl
+        qrDataUrl
+    }
+}
+
+mutation ConfirmAppSetup($setupToken: String!, $code: String!) {
+    confirmAppSetup(setupToken: $setupToken, code: $code) {
+        ...ClientSessionFields
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "name": "kisetsu-booking-client",
+    "version": "0.1.0",
+    "private": true,
+    "description": "Kisetsu Spa's public booking site (kisetsuspa.com/book): clients sign in with an authenticator code and book online. Static Next.js export served by Nginx.",
+    "scripts": {
+        "dev": "next dev -p 2500",
+        "build": "next build",
+        "preview": "npx serve out -l 2500",
+        "typecheck": "tsc --noEmit",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "codegen": "graphql-codegen"
+    },
+    "dependencies": {
+        "@reduxjs/toolkit": "^2.13.0",
+        "graphql": "^17.0.2",
+        "next": "^16.4.2",
+        "react": "^19.3.1",
+        "react-dom": "^19.3.1",
+        "react-redux": "^9.3.0"
+    },
+    "devDependencies": {
+        "@graphql-codegen/cli": "^7.4.6",
+        "@graphql-codegen/client-preset": "^6.2.3",
+        "@types/node": "^22",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "eslint": "^9.39.5",
+        "eslint-config-next": "^16.4.2",
+        "eslint-config-prettier": "^10.1.8",
+        "prettier": "^3.9.10",
+        "typescript": "^5"
+    }
+}

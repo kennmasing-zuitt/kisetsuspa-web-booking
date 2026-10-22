@@ -1,0 +1,448 @@
+/* Kisetsu Spa — booking site. Warm paper, ink, one season accent per service. */
+:root {
+    --bg: #f6f1e9;
+    --surface: #fffdf9;
+    --ink: #2a2420;
+    --muted: #776d63;
+    --line: #e6ddd0;
+    --accent: #3f5d4c; /* deep moss */
+    --accent-ink: #ffffff;
+    --accent-soft: #e4ece6;
+    --danger: #a3332b;
+    --danger-soft: #f8e6e3;
+    --focus: #b88a3e;
+    --haru: #d9879a; /* spring */
+    --natsu: #3e8f8a; /* summer */
+    --aki: #c27a32; /* autumn */
+    --fuyu: #5d7591; /* winter */
+    --shiki: #7d5a86; /* four seasons */
+    --radius: 14px;
+    --serif:
+        "Iowan Old Style", "Palatino Linotype", Palatino, "Hiragino Mincho ProN", Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #171512;
+        --surface: #211e1a;
+        --ink: #f1ebe2;
+        --muted: #a99f93;
+        --line: #36302a;
+        --accent: #8fb79d;
+        --accent-ink: #14201a;
+        --accent-soft: #24342a;
+        --danger: #f0a39b;
+        --danger-soft: #3a2220;
+        color-scheme: dark;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+html,
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+a {
+    color: var(--accent);
+}
+button {
+    font: inherit;
+}
+
+.shell {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+.brand {
+    padding: 22px 16px 8px;
+    text-align: center;
+}
+.brand__name {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    margin: 0;
+}
+.brand__name small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+}
+.seasons {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+}
+.seasons i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+.main {
+    flex: 1;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 12px 16px 40px;
+}
+.footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 20px 16px 28px;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    box-shadow: 0 1px 2px rgb(42 36 32 / 0.04);
+}
+.card + .card {
+    margin-top: 14px;
+}
+h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.55rem;
+    line-height: 1.2;
+    margin: 0 0 6px;
+}
+h2 {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 22px 0 10px;
+    font-weight: 600;
+}
+.lead {
+    color: var(--muted);
+    margin: 0 0 18px;
+}
+.stack {
+    display: grid;
+    gap: 14px;
+}
+.field {
+    display: grid;
+    gap: 6px;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+.field input {
+    font: inherit;
+    font-size: 1.05rem;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--ink);
+    width: 100%;
+    min-width: 0;
+}
+.field input:focus,
+.btn:focus-visible,
+.choice:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 1px;
+}
+.field input.code {
+    font-size: 1.5rem;
+    letter-spacing: 0.35em;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+.hint {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 400;
+    margin: 0;
+}
+.row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 18px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%;
+}
+.btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+.btn--ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line);
+}
+.btn--link {
+    background: none;
+    color: var(--accent);
+    padding: 4px;
+    width: auto;
+    font-weight: 500;
+}
+.actions {
+    display: grid;
+    gap: 10px;
+    margin-top: 4px;
+}
+.alert {
+    background: var(--danger-soft);
+    color: var(--danger);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 0.92rem;
+    margin: 0;
+}
+.note {
+    background: var(--accent-soft);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.92rem;
+    margin: 0;
+}
+.center {
+    text-align: center;
+}
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 18px 0 6px;
+}
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+}
+
+/* Steps indicator */
+.steps {
+    display: flex;
+    gap: 6px;
+    margin: 0 0 16px;
+    padding: 0;
+    list-style: none;
+}
+.steps li {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--line);
+}
+.steps li.is-done {
+    background: var(--accent);
+}
+
+/* Choices: days, services, therapists, times */
+.choices {
+    display: grid;
+    gap: 8px;
+}
+.choices--days {
+    grid-auto-flow: column;
+    grid-auto-columns: 64px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scroll-snap-type: x mandatory;
+}
+.choices--times {
+    grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+}
+.choices--chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.choice {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    border-radius: 12px;
+    padding: 10px 12px;
+    cursor: pointer;
+    text-align: left;
+}
+.choice[aria-pressed="true"] {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1px var(--accent);
+}
+.choice:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+.choice--day {
+    text-align: center;
+    padding: 8px 4px;
+    scroll-snap-align: start;
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+.choice--day strong {
+    display: block;
+    font-size: 1.25rem;
+    color: var(--ink);
+    font-family: var(--serif);
+}
+.choice--time {
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+}
+.choice--chip {
+    border-radius: 999px;
+    padding: 8px 14px;
+}
+.service {
+    display: grid;
+    gap: 8px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+    background: var(--surface);
+}
+.service__name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--serif);
+    font-size: 1.15rem;
+}
+.service__name i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.service .choices--chips .choice {
+    font-size: 0.92rem;
+}
+
+/* Summary / confirmation */
+.summary {
+    margin: 0;
+    display: grid;
+    gap: 10px;
+}
+.summary div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 8px;
+}
+.summary div:last-child {
+    border-bottom: 0;
+}
+.summary dt {
+    color: var(--muted);
+}
+.summary dd {
+    margin: 0;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* QR step */
+.qr {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+}
+.qr img {
+    width: 210px;
+    height: 210px;
+    background: #fff;
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+}
+.secret {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 10px;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    user-select: all;
+    text-align: center;
+}
+.howto {
+    margin: 0;
+    padding-left: 20px;
+    display: grid;
+    gap: 6px;
+    color: var(--ink);
+}
+.turnstile {
+    min-height: 65px;
+    display: flex;
+    justify-content: center;
+}
+.done-mark {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: grid;
+    place-items: center;
+    font-size: 1.6rem;
+    margin: 0 auto 10px;
+}
+.muted {
+    color: var(--muted);
+}
+.empty {
+    color: var(--muted);
+    font-size: 0.92rem;
+    padding: 14px;
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+    text-align: center;
+}
+.topline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 10px;
+}
